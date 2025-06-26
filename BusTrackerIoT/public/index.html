@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Tracker - Real-time IoT Monitoring</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-bus"></i> Bus Tracker</h1>
+            <div class="connection-status" id="connectionStatus">
+                <i class="fas fa-circle"></i>
+                <span>Connecting...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Current Location</h3>
+                        <p id="currentLocation">Waiting for GPS...</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Speed</h3>
+                        <p id="currentSpeed">0 km/h</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Last Update</h3>
+                        <p id="lastUpdate">Never</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Device Status</h3>
+                        <p id="deviceStatus">Offline</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map and Chat Layout -->
+        <div class="content-layout">
+            <!-- Map Container -->
+            <div class="map-container">
+                <div class="map-header">
+                    <h2><i class="fas fa-map"></i> Live Tracking Map</h2>
+                    <div class="map-controls">
+                        <button id="centerMapBtn" class="btn btn-secondary" title="Center on Bus">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                        <button id="toggleRouteBtn" class="btn btn-secondary" title="Toggle Route">
+                            <i class="fas fa-route"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="map" class="map"></div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2><i class="fas fa-robot"></i> Bus Assistant</h2>
+                    <button id="clearChatBtn" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <p>Hello! I'm your bus tracking assistant. Ask me about the bus location, speed, or status.</p>
+                        </div>
+                        <div class="message-time"></div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Ask about bus location, speed, ETA..." />
+                    <button id="sendChatBtn" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Starting Bus Tracker...</p>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Connection Error</h3>
+                <button class="modal-close" id="closeErrorModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage">Unable to connect to the tracking server.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="retryConnection">Retry Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="auth.js"></script>
+    <script src="map.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
